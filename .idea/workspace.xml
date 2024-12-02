@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f64f42b3-5d9a-47a6-bb08-fba64db0c395" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_1/ApplePay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_1/CreditCardProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_1/PaymentApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_1/PaymentProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_2/Animal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_2/Cat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_2/Dog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_2/Zoo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_3/Bird.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_3/Duck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_3/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_3/Swimmable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem1_3/Walkable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem2_1/Airplane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem2_1/Car.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem2_1/Flyable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem2_1/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem2_1/Moveable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem3/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem3/MyArrayCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem3/MyCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/HireDateComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/Manager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/NameComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem4/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem5/Chocolate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem5/Sort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem5/TestSort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem5/Time.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Animal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Cat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Dog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/PersonRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/PhDStudent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lab3/src/Problem6/Problem5/src/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/Animal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/Bird.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/CanClimb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/CanFly.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/CanSwim.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/CanWalk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/Dog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/Fish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture0611/src/Monkey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture3010/Lecture3010.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Lecture3010/src/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Animal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/CanHaveDessert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/CanHaveMainDish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/CanHavePizza.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/CanHaveSalad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/CanPay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Cat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/DessertException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Dish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/DishType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Dog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/MainDishException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/NotAllowedToEatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/Restaurant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Practice6/src/SaladException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../UML/src/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/lecture2310.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/src/Car.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/src/Motorcycle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/src/Truck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/src/Vehicle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lecture2310/src/VehicleFileHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/paractice5.2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/src/Example4_2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/src/Example4_3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/src/Example4_4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/src/StringTokenizer1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../paractice5.2/src/StringTokenizer2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice_5.2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice_5.2/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice_5.2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice_5.2/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../practice_5.2/practice_5.2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem1/src/PartB/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem1/src/PartB/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem2/src/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem2/src/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem3/src/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem3/src/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem3/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem3/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem4/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem4/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem5/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem5/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem5/src/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem5/src/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/Problem5/src/PhDStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/Problem5/src/PhDStudent.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2p7B3AoL56OncWfFXxPEsEne58c" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/aminayegenberdiyeva/Documents/oop/untitled folder",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f64f42b3-5d9a-47a6-bb08-fba64db0c395" name="Changes" comment="" />
+      <created>1732107031514</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732107031514</updated>
+      <workItem from="1732107032527" duration="397000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
