@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.*;
+package Stuff;
 
 public class Mark {
     public Mark() {

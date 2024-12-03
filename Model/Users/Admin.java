@@ -1,4 +1,5 @@
-import java.io.*;
+package Users;
+
 import java.util.*;
 
 public class Admin {

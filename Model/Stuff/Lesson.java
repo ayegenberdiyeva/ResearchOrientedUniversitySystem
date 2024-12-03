@@ -1,4 +1,8 @@
+package Stuff;
+
 import Enums.LessonType;
+import Users.Student;
+import Users.Teacher;
 
 import java.util.*;
 

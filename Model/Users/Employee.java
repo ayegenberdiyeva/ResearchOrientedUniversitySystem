@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.*;
+package Users;
 
 public abstract class Employee extends Manager {
     public Employee() {
