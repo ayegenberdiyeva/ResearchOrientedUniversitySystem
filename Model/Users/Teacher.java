@@ -1,32 +1,35 @@
-import java.io.*;
+package Users;
+
+import Enums.TeacherTitle;
+import Enums.UrgencyLevel;
+
 import java.util.*;
 
-public class Student {
-    public Student() {
+public class Teacher {
+    public Teacher() {
     }
 
-    private double gpa;
-    private int year;
-    private String major;
+    private TeacherTitle title;
+    private String department;
+    private boolean isProfessor;
     private List<Course> courses;
     private List<ResearchPaper> researchPapers;
 
-    public void registerCourse(Course course) {
+    public void addCourses(Course course) {
         // TODO implement here
     }
 
-    public List<Course> viewCourses() {
+    public void sendComplaint(Student student, UrgencyLevel urgencyLevel) {
+        // TODO implement here
+    }
+
+    public void putMarks(Student student, Mark mark) {
+        // TODO implement here
+    }
+
+    public List<Student> viewStudents() {
         // TODO implement here
         return null;
-    }
-
-    public String viewTranscript() {
-        // TODO implement here
-        return "";
-    }
-
-    public void rateTeacher(Teacher teacher, int rating) {
-        // TODO implement here
     }
 
     public void addResearchPaper(ResearchPaper paper) {
@@ -37,4 +40,5 @@ public class Student {
         // TODO implement here
         return null;
     }
+
 }

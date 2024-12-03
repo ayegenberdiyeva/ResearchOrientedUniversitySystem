@@ -1,4 +1,5 @@
-import java.io.*;
+package Interfaces;
+
 import java.util.*;
 
 public interface Researcher {

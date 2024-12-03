@@ -1,4 +1,8 @@
-import java.io.*;
+package Stuff;
+
+import Users.Student;
+import Users.Teacher;
+
 import java.util.*;
 
 public class Course {

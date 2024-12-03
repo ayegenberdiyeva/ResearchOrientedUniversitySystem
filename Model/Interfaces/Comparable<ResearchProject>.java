@@ -1,6 +1,4 @@
-
-import java.io.*;
-import java.util.*;
+package Interfaces;
 
 public interface Comparable<ResearchProject>  {
 

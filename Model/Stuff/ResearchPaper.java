@@ -1,3 +1,5 @@
+package Stuff;
+
 import Enums.ResearcherPaperFormat;
 
 import java.util.*;

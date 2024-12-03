@@ -1,4 +1,5 @@
-import java.io.*;
+package Stuff;
+
 import java.util.*;
 
 public class Message {
