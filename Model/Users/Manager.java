@@ -1,12 +1,19 @@
 package Users;
 
 import java.util.*;
+import Stuff.Course;
 
-public class Manager {
-    public Manager() {
+public class Manager extends User {
+    public Manager(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
     }
 
     private List<Course> courses;
+
+    @Override
+    protected String getRolePrefix() {
+        return "MAN";
+    }
 
     public void approveCourseRegistration(Student student, Course course) {
         // TODO implement here
@@ -23,5 +30,15 @@ public class Manager {
 
     public void generatePerfomanceReport() {
         // TODO implement here
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getName()).append(" {");
+        sb.append(super.toString());
+        sb.append(", courses=").append(courses).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
