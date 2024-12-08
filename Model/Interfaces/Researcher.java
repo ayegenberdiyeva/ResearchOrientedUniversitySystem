@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.util.*;
+import Stuff.*;
 
 public interface Researcher {
     public abstract void addResearchPaper(ResearchPaper paper);

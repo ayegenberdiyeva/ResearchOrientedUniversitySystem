@@ -1,11 +1,10 @@
 package Stuff;
 
-import Interfaces.Comparable;
 import Interfaces.Researcher;
 
 import java.util.*;
 
-public class ResearchProject implements Comparable<ResearchProject> {
+public class ResearchProject {
     public ResearchProject() {
     }
 

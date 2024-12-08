@@ -1,5 +1,5 @@
-package Interfaces;
-
-public interface Comparable<ResearchProject>  {
-
-}
+//package Interfaces;
+//
+//public interface Comparable<ResearchProject>  {
+//
+//}
