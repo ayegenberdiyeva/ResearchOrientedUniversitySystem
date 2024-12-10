@@ -1,8 +1,11 @@
 package Users;
 
 import Enums.UserRole;
+import Utils.LanguageManager;
 import Utils.PasswordUtils;
 
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.UUID;
 
 public abstract class User {
@@ -32,10 +35,10 @@ public abstract class User {
     public boolean login(String email, String password) {
         if (this.email.equals(email) && this.password.equals(PasswordUtils.hashPassword(password))) {
             this.isLoggedIn = true;
-            System.out.println(getFirstName() + " " + getLastName() + " logged in.");
+            System.out.println(LanguageManager.getMessage("login_scs", getFirstName(), getLastName()));
             return true;
         } else {
-            System.out.println("Invalid email or password.");
+            System.out.println(LanguageManager.getMessage("login_fl"));
             return false;
         }
     }
@@ -43,22 +46,58 @@ public abstract class User {
     public void logout() {
         if (isLoggedIn) {
             this.isLoggedIn = false;
-            System.out.println(getFirstName() + " " + getLastName() + " logged out.");
+            System.out.println(LanguageManager.getMessage("logout_scs", getFirstName(), getLastName()));
         } else {
-            System.out.println("User is already logged out.");
+            System.out.println(LanguageManager.getMessage("logout_fl"));
         }
     }
 
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         User other = (User) obj;
         return id != null && id.equals(other.id);
+    }
+
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public User collectUserInput(Scanner scanner) {
+        System.out.println(LanguageManager.getMessage("user_collect_first_name") + ": ");
+        String firstName_u = scanner.nextLine();
+        System.out.println(LanguageManager.getMessage("user_collect_last_name") + ": ");
+        String lastName_u = scanner.nextLine();
+        System.out.println(LanguageManager.getMessage("user_collect_email") + ": ");
+        String email_u = scanner.nextLine();
+        System.out.println(LanguageManager.getMessage("user_collect_password") + ": ");
+        String password_u = scanner.nextLine();
+        System.out.println(LanguageManager.getMessage("user_choose_role") + ": ");
+        System.out.println(LanguageManager.getMessage("role_choice"));
+
+        try{
+            int role_choice = Integer.parseInt(scanner.nextLine());
+            UserRole userRole = UserRole.values()[role_choice-1];
+            return UserCreator.createUser(firstName_u, lastName_u, email_u, password_u, userRole);
+        } catch (Exception e) {
+            System.out.println(LanguageManager.getMessage("invalid_role"));
+            return null;
+        }
+    }
+
+    public void collectUserUpdates(Scanner scanner, User user) {
+        System.out.println(LanguageManager.getMessage("user_collect_first_name") + LanguageManager.getMessage("user_update") + ": ");
+        String firstName_u = scanner.nextLine();
+        if (!firstName_u.equals("-")) user.setFirstName(firstName_u);
+        System.out.println(LanguageManager.getMessage("user_collect_last_name") + LanguageManager.getMessage("user_update") + ": ");
+        String lastName_u = scanner.nextLine();
+        if (!lastName_u.equals("-")) user.setLastName(lastName_u);
+        System.out.println(LanguageManager.getMessage("user_collect_email") + LanguageManager.getMessage("user_update") + ": ");
+        String email_u = scanner.nextLine();
+        if (!email_u.equals("-")) user.setEmail(email_u);
+        System.out.println(LanguageManager.getMessage("user_collect_password") + LanguageManager.getMessage("user_update") + ": ");
+        String password_u = scanner.nextLine();
+        if (!password_u.equals("-")) user.setPassword(password_u);
     }
 
     public abstract UserRole getRole();
