@@ -3,11 +3,14 @@ package Users;
 import Enums.UserRole;
 import Utils.LanguageManager;
 
+import java.nio.file.Path;
 import java.util.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Admin extends User {
     public Admin(String firstName, String lastName, String email, String password) {
@@ -44,28 +47,11 @@ public class Admin extends User {
             String option = scanner.nextLine();
             switch (option) {
                 case "1":
-                    System.out.println(LanguageManager.getMessage("enter_user_details") + ": ");
-                    System.out.println(LanguageManager.getMessage("enter_first_name") + ": ");
-                    String firstName = scanner.nextLine();
-                    System.out.println(LanguageManager.getMessage("enter_last_name") + ": ");
-                    String lastName = scanner.nextLine();
-                    System.out.println(LanguageManager.getMessage("enter_email") + ": ");
-                    String email = scanner.nextLine();
-                    System.out.println(LanguageManager.getMessage("enter_password") + ": ");
-                    String password = scanner.nextLine();
-                    System.out.println(LanguageManager.getMessage("choose_role") + ": ");
-                    int role_choice = scanner.nextInt();
-                    scanner.nextLine();
-                    UserRole userRole = UserRole.values()[role_choice-1];
-
-                    try {
-                        User newUser = UserCreator.createUser(firstName, lastName, email, password, userRole);
+                    User newUser = collectUserInput(scanner);
+                    if (newUser != null) {
                         addUser(newUser);
                         System.out.println(LanguageManager.getMessage("user_added_successfully"));
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(LanguageManager.getMessage("invalid_role"));
                     }
-                    break;
                 case "2":
                     System.out.println(LanguageManager.getMessage("enter_user_id_remove") + ": ");
                     String userIdToRemove = scanner.nextLine();
@@ -79,44 +65,22 @@ public class Admin extends User {
                     if (userToUpdate == null) {
                         System.out.println(LanguageManager.getMessage("user_not_found"));
                         break;
+                    } else {
+                        collectUserUpdates(scanner, userToUpdate);
+                        updateUser(userToUpdate);
+                        System.out.println(LanguageManager.getMessage("user_updated_successfully"));
                     }
-
-                    System.out.println(LanguageManager.getMessage("enter_user_fname_update") + ": ");
-                    String fnameToUpdate = scanner.nextLine();
-                    if (!fnameToUpdate.equals("-")) userToUpdate.setFirstName(fnameToUpdate);
-
-                    System.out.println(LanguageManager.getMessage("enter_user_lname_update") + ": ");
-                    String lnameToUpdatee = scanner.nextLine();
-                    if (!lnameToUpdatee.equals("-")) userToUpdate.setLastName(lnameToUpdatee);
-
-                    System.out.println(LanguageManager.getMessage("enter_user_email_update") + ": ");
-                    String emailToUpdate = scanner.nextLine();
-                    if (!emailToUpdate.equals("-")) userToUpdate.setEmail(emailToUpdate);
-
-                    System.out.println(LanguageManager.getMessage("enter_user_password_update") + ": ");
-                    String passwordToUpdate = scanner.nextLine();
-                    if (!passwordToUpdate.equals("-")) userToUpdate.setPassword(passwordToUpdate);
-
-                    updateUser(userToUpdate);
-                    System.out.println(LanguageManager.getMessage("user_updated_successfully"));
-                    break;
                 case "4":
                     System.out.println(LanguageManager.getMessage("logs_title"));
-                    List<String> logs = viewLogs();
-                    for (String log : logs) {
-                        System.out.println(log);
-                    }
+                    displayLogs();
                     break;
                 case "5":
                     System.out.println(LanguageManager.getMessage("exiting"));
                     return;
-
                 default:
                     System.out.println(LanguageManager.getMessage("invalid_option"));
             }
         }
-
-        //TODO fill the performduties
     }
 
     private void writeLog(String message){
@@ -125,6 +89,25 @@ public class Admin extends User {
             writer.newLine();
         } catch (IOException e) {
             System.out.println(LanguageManager.getMessage("log_error", e.getMessage()));
+        }
+    }
+
+    public List<String> viewLogs(){
+        writeLog(LanguageManager.getMessage("viewing_logs"));
+        try {
+            return Files.readAllLines(Paths.get(LOG_FILE));
+        } catch (IOException e) {
+            System.out.println(LanguageManager.getMessage("log_error", e.getMessage()));
+            return new ArrayList<>();
+        }
+    }
+
+    public void displayLogs(){
+        List<String> logs = viewLogs();
+        if (logs.isEmpty()){
+            System.out.println(LanguageManager.getMessage("no_logs"));
+        } else {
+            logs.forEach(System.out::println);
         }
     }
 
@@ -186,11 +169,6 @@ public class Admin extends User {
             }
         }
         return null;
-    }
-
-    public List<String> viewLogs() {
-        writeLog(LanguageManager.getMessage("viewing_logs"));
-        return new ArrayList<>();
     }
 
     public List<User> getUsers() {
