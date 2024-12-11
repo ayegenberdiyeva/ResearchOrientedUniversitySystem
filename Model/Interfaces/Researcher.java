@@ -1,15 +1,20 @@
 package Interfaces;
 
 import java.util.*;
+
+import Enums.ResearchSortCriteria;
 import Stuff.*;
 
 public interface Researcher {
-    public abstract void addResearchPaper(ResearchPaper paper);
+    void addResearchPaper(ResearchPaper paper);
 
-    public abstract List<ResearchPaper> getResearchPapers();
+    List<ResearchPaper> getResearchPapers();
 
-    public abstract int calculateHIndex();
+    void addResearchProject(ResearchProject paper);
 
-    public abstract List<ResearchPaper> printPapers(Comparator<ResearchPaper> comparatot);
+    List<ResearchProject> getResearchProjects();
 
+    List<ResearchPaper> printPapers(ResearchSortCriteria criteria);
+
+    int calculateHIndex();
 }

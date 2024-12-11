@@ -3,6 +3,7 @@ package Stuff;
 import Enums.LessonType;
 import Users.Student;
 import Users.Teacher;
+import Utils.LanguageManager;
 
 import java.util.*;
 
@@ -14,6 +15,8 @@ public class Lesson {
         this.instructor = instructor;
         this.rateOfLessonsPerWeek = rateOfLessonsPerWeek;
         this.students = new ArrayList<>();
+        this.attendanceRecords = new HashMap<>();
+        this.marksRecords = new HashMap<>();
         this.numberOfStudents = 0;
     }
 
@@ -25,6 +28,7 @@ public class Lesson {
     private int numberOfStudents;
     private int rateOfLessonsPerWeek;
     private Map<Student, Integer> attendanceRecords;
+    private Map<Student, Mark> marksRecords;
 
     public void assignInstructor(Teacher teacher) {
         this.instructor = teacher;
@@ -33,19 +37,51 @@ public class Lesson {
     public void addStudent(Student student) {
         if (!this.students.contains(student)) {
             this.students.add(student);
-            numberOfStudents++;
+            numberOfStudents = students.size();
         }
     }
 
     public void removeStudent(Student student) {
         if (students != null && !students.isEmpty()) {
             this.students.removeIf(s -> s.getId().equals(student.getId()));
-            numberOfStudents--;
+            numberOfStudents = students.size();
         }
     }
 
-    public void conductLesson() {
-        // TODO implement here
+    public void conductLesson(List<Student> attendedStudents) {
+        if (students.isEmpty()) {
+            System.out.println(LanguageManager.getMessage("empty_lesson", this.id));
+            return;
+        }
+
+        for (Student student : attendedStudents) {
+            if (attendanceRecords.containsKey(student)) {
+                attendanceRecords.put(student, attendanceRecords.getOrDefault(student, 0) + 1);
+            }
+        }
+        System.out.println(LanguageManager.getMessage("conducted_lesson", this.id));
+    }
+
+    public double calculateAttendance(Student student) {
+        if (rateOfLessonsPerWeek == 0 || !attendanceRecords.containsKey(student)) {
+            System.out.println(LanguageManager.getMessage("student_not_found", this.id));
+            return 0;
+        }
+
+        int numberOfLessons = rateOfLessonsPerWeek*15;
+        return attendanceRecords.get(student)*100 / numberOfLessons;
+    }
+
+
+
+    public void setMarksRecords() {
+        if (students.isEmpty()) {
+            System.out.println(LanguageManager.getMessage("empty_lesson", this.id));
+            return;
+        }
+        for (Student student : students) {
+            marksRecords.putIfAbsent(student, new Mark());
+        }
     }
 
     public String getId() {
@@ -77,6 +113,7 @@ public class Lesson {
     }
 
     public int getNumberOfStudents() {
+        this.numberOfStudents = students.size();
         return numberOfStudents;
     }
 
@@ -92,6 +129,14 @@ public class Lesson {
         this.attendanceRecords = attendanceRecords;
     }
 
+    public Map<Student, Mark> getMarksRecords() {
+        return marksRecords;
+    }
+
+    public void setMarksRecords(Map<Student, Mark> marksRecords) {
+        this.marksRecords = marksRecords;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getName()).append(" {");
@@ -103,6 +148,7 @@ public class Lesson {
         sb.append(", rateOfLessonsPerWeek=").append(rateOfLessonsPerWeek);
         sb.append(", students=").append(students);
         sb.append(", attendanceRecords=").append(attendanceRecords);
+        sb.append(", marksRecords=").append(marksRecords);
         sb.append('}');
         return sb.toString();
     }
