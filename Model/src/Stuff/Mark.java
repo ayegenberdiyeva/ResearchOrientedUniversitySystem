@@ -1,7 +1,15 @@
 package src.Stuff;
 
+import src.Utils.DatabaseConnection;
+
+import javax.xml.crypto.Data;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import java.util.UUID;
 
 public class Mark {
     public Mark(double firstAttestation, double secondAttestation, double finalExam) {
@@ -22,6 +30,33 @@ public class Mark {
     private String markSymbol;
 
     private static final NavigableMap<Double, String> GRADE_SCALE = new TreeMap<>();
+
+    public boolean saveMark(UUID studentId, UUID courseId){
+        String query = """
+                insert into mark (id, student_id, cpurse_id, first_attestation, second_attestation, final_examination, final_grade) 
+                values (?, ?, ?, ?, ?, ?, ?)
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)) {
+            UUID markId = UUID.randomUUID();
+            double finalGrade = calculateFinalGrade();
+
+            ps.setObject(1, markId);
+            ps.setObject(2, studentId);
+            ps.setObject(3, courseId);
+            ps.setDouble(4, firstAttestation);
+            ps.setDouble(5, secondAttestation);
+            ps.setDouble(6, finalExam);
+            ps.setDouble(7, finalGrade);
+
+            ps.executeUpdate();
+            System.out.println("Mark saved");
+            return true;
+        } catch (SQLException e){
+            System.err.println("Failed to save mark: " + e.getMessage());
+            return false;
+        }
+    }
 
     static {
         GRADE_SCALE.put(94.5, "A");

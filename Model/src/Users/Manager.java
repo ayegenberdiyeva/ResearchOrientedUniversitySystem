@@ -45,8 +45,8 @@ public class Manager extends User {
                     String studentId = scanner.nextLine();
                     System.out.println(LanguageManager.getMessage("enter_course_id"));
                     String courseId = scanner.nextLine();
-                    Student student = Student.findStudentById(studentId, null);
-                    Course course = null;
+                    Student student = Student.findStudentById(UUID.fromString(studentId));
+                    Course course = Course.fetchCourseById(UUID.fromString(courseId));
                     if (student != null && course != null) {
                         approveCourseRegistration(student, course);
                     } else {
@@ -58,8 +58,8 @@ public class Manager extends User {
                     String teacherId = scanner.nextLine();
                     System.out.println(LanguageManager.getMessage("enter_course_id"));
                     String courseIdForTeacher = scanner.nextLine();
-                    Teacher teacher = null;
-                    Course courseForTeacher = null;
+                    Teacher teacher = Teacher.fetchTeacherById(UUID.fromString(teacherId));
+                    Course courseForTeacher = Course.fetchCourseById(UUID.fromString(courseIdForTeacher));
                     if (teacherId != null && courseIdForTeacher != null) {
                         assignTeacherToCourse(teacher, courseForTeacher);
                     } else {

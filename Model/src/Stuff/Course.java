@@ -3,27 +3,55 @@ package src.Stuff;
 import src.Enums.MajorSchools;
 import src.Users.Student;
 import src.Users.Teacher;
+import src.Utils.DatabaseConnection;
 
+import javax.xml.crypto.Data;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Course {
-    public Course(String id, String name, int credits, String description, MajorSchools majorSchool) {
-        this.id = id;
+    public Course(String name, int credits, String description, MajorSchools majorSchool) {
+        this.id = generateId();
         this.name = name;
         this.credits = credits;
         this.description = description;
         this.majorSchool = majorSchool;
         this.students = new ArrayList<>();
         this.instructors = new ArrayList<>();
+        insertIntoDatabase();
     }
 
-    private String id;
+    private void insertIntoDatabase(){
+        try (Connection conn = DatabaseConnection.getConnection()){
+            String query = "insert into courses (id, name, credits, description, major_school) values (?, ?, ?, ?, ?::major_school);";
+            try (PreparedStatement ps = conn.prepareStatement(query)){
+                ps.setObject(1, this.getId());
+                ps.setString(2, this.getName());
+                ps.setInt(3, this.getCredits());
+                ps.setString(4, this.getDescription());
+                ps.setString(5, this.getMajorSchool().name());
+                ps.executeUpdate();
+                System.out.println("Course inserted into database");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to insert course into database" + e.getMessage());
+        }
+    }
+
+    private UUID id;
     private String name;
     private int credits;
     private String description;
     private MajorSchools majorSchool;
     private List<Student> students;
     private List<Teacher> instructors;
+
+    public UUID generateId(){
+        return UUID.randomUUID();
+    }
 
     public void addStudent(Student student) {
         if (!students.contains(student)) {
@@ -67,7 +95,24 @@ public class Course {
         return count > 0 ? totalGrade / count : -1;
     }
 
-    public String getId() {
+    public static Course fetchCourseById(UUID id) {
+        String query = "select * from courses where id = ?";
+        Course course = null;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setObject(1, id);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    course = new Course(rs.getString("title"), rs.getInt("credits"), rs.getString("description"), MajorSchools.valueOf(rs.getString("major_school")));
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Failed to fetch course from database" + e.getMessage());
+        }
+
+        return course;
+    }
+
+    public UUID getId() {
         return id;
     }
 

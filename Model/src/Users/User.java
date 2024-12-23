@@ -1,10 +1,13 @@
 package src.Users;
 
 import src.Enums.UserRole;
+import src.Utils.DatabaseConnection;
 import src.Utils.LanguageManager;
 import src.Utils.PasswordUtils;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 import java.util.Scanner;
@@ -19,22 +22,27 @@ public abstract class User {
         this.password = PasswordUtils.hashPassword(password);
         this.id = generateId();
         this.isLoggedIn = false;
-        //here to implement insertion  into database
+        insertIntoDatabase();
     }
 
-    public void insert_row(Connection conn) {
-        Statement statement;
-        try {
-            String query = String.format("insert into users (id, first_name, last_name, email, password)  values ('%s', '%s', '%s', '%s', '%s')", this.getId(), this.getFirstName(), this.getLastName(), this.getEmail(), this.getPassword());
-            statement = conn.createStatement();
-            statement.execute(query);
-            System.out.println("Inserted row into users table");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    private void insertIntoDatabase() {
+        try (Connection conn = DatabaseConnection.getConnection()){
+            String query = "insert into users (id, first_name, last_name, email, password)  values (?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(query)){
+                ps.setObject(1, this.id);
+                ps.setString(2, this.firstName);
+                ps.setString(3, this.lastName);
+                ps.setString(4, this.email);
+                ps.setString(5, this.password);
+                ps.executeUpdate();
+                System.out.println("User inserted into database");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to insert user into database" + e.getMessage());
         }
     }
 
-    private String id;
+    private UUID id;
     private String firstName;
     private String lastName;
     private String email;
@@ -43,14 +51,14 @@ public abstract class User {
 
     protected abstract String getRolePrefix();
 
-    private String generateId(){
-        return getRolePrefix() + UUID.randomUUID().toString();
+    private UUID generateId(){
+        return UUID.randomUUID();
     }
 
     public boolean login(String email, String password) {
         if (this.email.equals(email) && this.password.equals(PasswordUtils.hashPassword(password))) {
             this.isLoggedIn = true;
-            System.out.println(LanguageManager.getMessage("login_scs", getFirstName(), getLastName()));
+            System.out.println(LanguageManager.getMessage("login_scs"));
             return true;
         } else {
             System.out.println(LanguageManager.getMessage("login_fl"));
@@ -119,7 +127,7 @@ public abstract class User {
 
     public abstract void performDuties();
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

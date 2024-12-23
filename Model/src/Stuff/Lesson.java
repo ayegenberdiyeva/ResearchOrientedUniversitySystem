@@ -3,13 +3,18 @@ package src.Stuff;
 import src.Enums.LessonType;
 import src.Users.Student;
 import src.Users.Teacher;
+import src.Utils.DatabaseConnection;
 import src.Utils.LanguageManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Lesson {
-    public Lesson(String id, String name, LessonType type, Course course, Teacher instructor, int rateOfLessonsPerWeek) {
-        this.id = id;
+    public Lesson(LessonType type, Course course, Teacher instructor, int rateOfLessonsPerWeek) {
+        this.id = generateId();
         this.type = type;
         this.course = course;
         this.instructor = instructor;
@@ -18,9 +23,27 @@ public class Lesson {
         this.attendanceRecords = new HashMap<>();
         this.marksRecords = new HashMap<>();
         this.numberOfStudents = 0;
+        insertIntoDatabase();
     }
 
-    private String id;
+    private void insertIntoDatabase(){
+        try (Connection conn = DatabaseConnection.getConnection()){
+            String query = "insert into lessons (id, course_id, instructor_id, type, rate_per_week) VALUES (?, ?, ?, ?::lesson_type, ?);";
+            try (PreparedStatement ps = conn.prepareStatement(query)){
+                ps.setObject(1, this.getId());
+                ps.setObject(2, this.getCourse().getId());
+                ps.setObject(3, this.getInstructor().getId());
+                ps.setString(4, this.getType().name());
+                ps.setInt(5, this.getRateOfLessonsPerWeek());
+                ps.executeUpdate();
+                System.out.println("Lesson inserted into database");
+            }
+        } catch (SQLException e){
+            System.out.println("Failed to insert lesson into database" + e.getMessage());
+        }
+    }
+
+    private UUID id;
     private LessonType type;
     private Course course;
     private List<Student> students;
@@ -29,6 +52,10 @@ public class Lesson {
     private int rateOfLessonsPerWeek;
     private Map<Student, Integer> attendanceRecords;
     private Map<Student, Mark> marksRecords;
+
+    private UUID generateId() {
+        return UUID.randomUUID();
+    }
 
     public void assignInstructor(Teacher teacher) {
         this.instructor = teacher;
@@ -84,7 +111,28 @@ public class Lesson {
         }
     }
 
-    public String getId() {
+    public static Lesson fetchLessonById(UUID id) {
+        String query = "select * from lessons where id = ?;";
+        Lesson lesson = null;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setObject(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    LessonType type = LessonType.valueOf(rs.getString("type"));
+                    Course course = Course.fetchCourseById((UUID) rs.getObject("course_id"));
+                    Teacher instructor = Teacher.fetchTeacherById((UUID) rs.getObject("instructor_id"));
+                    int rateOfLessonsPerWeek = rs.getInt("rate_per_week");
+
+                    lesson = new Lesson(type, course, instructor, rateOfLessonsPerWeek);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to fetch lesson from database" + e.getMessage());
+        }
+        return lesson;
+    }
+
+    public UUID getId() {
         return id;
     }
 

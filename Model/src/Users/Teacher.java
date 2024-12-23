@@ -3,8 +3,13 @@ package src.Users;
 import src.Enums.*;
 import src.Interfaces.Researcher;
 import src.Stuff.*;
+import src.Utils.DatabaseConnection;
 import src.Utils.LanguageManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Teacher extends User implements Researcher {
@@ -12,6 +17,29 @@ public class Teacher extends User implements Researcher {
         super(firstName, lastName, email, password);
         this.courses = new ArrayList<>();
         this.rating = 0;
+        this.isProfessor = false;
+        insertIntoDatabase();
+    }
+
+    private void insertIntoDatabase() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "insert into teachers (id, is_professor)  values (?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(query)) {
+                ps.setObject(1, this.getId());
+                ps.setBoolean(2, isProfessor);
+                ps.executeUpdate();
+                System.out.println("Teacher inserted into database");
+            }
+
+            String userQuery = "update users set role = 'TEACHER' where id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(userQuery)) {
+                ps.setObject(1, this.getId());
+                ps.executeUpdate();
+                System.out.println("Teacher role updated into users database");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to insert teacher into database: " + e.getMessage());
+        }
     }
 
     private TeacherTitle title;
@@ -58,7 +86,7 @@ public class Teacher extends User implements Researcher {
                 case "2":
                     System.out.println(LanguageManager.getMessage("enter_lesson_id"));
                     String lessonId = scanner.nextLine();
-                    Lesson lesson = null;
+                    Lesson lesson = Lesson.fetchLessonById(UUID.fromString(lessonId));
                     if (lessonId != null) {
                         try {
                             List<Student> students = viewStudents(lesson);
@@ -155,6 +183,11 @@ public class Teacher extends User implements Researcher {
         }
 
         lesson.getMarksRecords().put(student, studentMark);
+
+        boolean saved = studentMark.saveMark(student.getId(), course.getId());
+        if (!saved) {
+            System.out.println("Failed to save mark for student " + student.getId());
+        }
     }
 
     public List<Student> viewStudents(Lesson lesson) {
@@ -213,6 +246,35 @@ public class Teacher extends User implements Researcher {
         }
 
         return sortedPapers;
+    }
+
+    public static Teacher fetchTeacherById(UUID id) {
+        String query = """
+            select\s
+                u.id as user_id, u.first_name, u.last_name, u.email, u.password
+            from users u inner join public.teachers t on u.id = t.id
+            where u.id = ?;
+        """;
+        Teacher teacher = null;
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setObject(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+
+                    teacher = new Teacher(firstName, lastName, email, password);
+
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to fetch teacher by ID: " + e.getMessage());
+        }
+        return teacher;
     }
 
     public TeacherTitle getTitle() {

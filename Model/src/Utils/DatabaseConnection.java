@@ -1,5 +1,7 @@
 package src.Utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,10 +9,15 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class DatabaseConnection {
-    private static final Properties prop = new Properties();
-    private static final String URL = prop.getProperty("DB_URL");
-    private static final String USER = prop.getProperty("DB_USER");
-    private static final String PASSWORD = prop.getProperty("DB_PASSWORD");
+//    private static final Properties prop = new Properties();
+
+//    private static final String URL = prop.getProperty("jdbc:postgresql://localhost:5432/OOPProject");
+//    private static final String USER = prop.getProperty("aminayegenberdiyeva");
+//    private static final String PASSWORD = prop.getProperty("yegnbb");
+
+    private static final String URL = ("jdbc:postgresql://localhost:5432/OOPProject");
+    private static final String USER = ("aminayegenberdiyeva");
+    private static final String PASSWORD = ("yegnbb");
 
     public static Connection getConnection() throws SQLException {
         Connection conn = null;

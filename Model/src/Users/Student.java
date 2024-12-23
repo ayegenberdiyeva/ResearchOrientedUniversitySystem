@@ -8,10 +8,7 @@ import src.Enums.MajorSchools;
 import src.Utils.DatabaseConnection;
 import src.Utils.LanguageManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 import java.time.LocalDate;
 
@@ -19,19 +16,27 @@ public class Student extends User implements Researcher {
     public Student(String firstName, String lastName, String email, String password) {
         super(firstName, lastName, email, password);
         this.year = LocalDate.now().getYear();
-        //here to insert to rows to database
+        insertIntoDatabase();
     }
 
-    public void insert_row(Connection conn) {
-        super.insert_row(conn);
-        Statement statement;
-        try {
-            String query = String.format("insert into students (id, year)  values ('%s', '%s')", this.getId(), this.getYear());
-            statement = conn.createStatement();
-            statement.execute(query);
-            System.out.println("Inserted row into users table");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    private void insertIntoDatabase() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "insert into students (id, year)  values (?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(query)) {
+                ps.setObject(1, this.getId());
+                ps.setInt(2, year);
+                ps.executeUpdate();
+                System.out.println("Student inserted into database");
+            }
+
+            String userQuery = "update users set role = 'STUDENT' where id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(userQuery)) {
+                ps.setObject(1, this.getId());
+                ps.executeUpdate();
+                System.out.println("Student role updated into users database");
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to insert student into database: " + e.getMessage());
         }
     }
 
@@ -62,7 +67,7 @@ public class Student extends User implements Researcher {
                 case "1": // Register for a course
                     System.out.println(LanguageManager.getMessage("enter_course_id"));
                     String courseId = scanner.nextLine();
-                    Course course = /* fetch course by ID */ null; // Add logic to fetch course
+                    Course course = Course.fetchCourseById(UUID.fromString(courseId));
                     if (course != null) {
                         registerCourse(course);
                         System.out.println(LanguageManager.getMessage("course_registered_successfully"));
@@ -79,7 +84,7 @@ public class Student extends User implements Researcher {
                     System.out.println(LanguageManager.getMessage("enter_rating"));
                     int rating = scanner.nextInt();
                     scanner.nextLine(); // Consume newline
-                    Teacher teacher = /* fetch teacher by ID */ null; // Add logic to fetch teacher
+                    Teacher teacher = Teacher.fetchTeacherById(UUID.fromString(teacherId));
                     if (teacher != null) {
                         rateTeacher(teacher, rating);
                         System.out.println(LanguageManager.getMessage("teacher_rated_successfully"));
@@ -224,20 +229,29 @@ public class Student extends User implements Researcher {
         return sortedPapers;
     }
 
-    public static Student findStudentById(String id, List<Student> students) {
-        if (students == null || students.isEmpty() ) {
-            System.out.println(LanguageManager.getMessage("no_students_found"));
-            return null;
-        }
-
-        for (Student student : students) {
-            if (student.getId().equals(id)) {
-                return student;
+    public static Student findStudentById(UUID id) {
+        String query = """
+            select\s
+                u.id as user_id, u.first_name, u.last_name, u.email, u.password
+            from users u inner join public.student s on u.id = s.id
+            where u.id = ?;
+        """;
+        Student student = null;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)){
+            ps.setObject(1, id);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    student = new Student(firstName, lastName, email, password);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println("Failed to fetch student from database" + e.getMessage());
         }
-
-        System.out.println(LanguageManager.getMessage("student_not_found", id));
-        return null;
+        return student;
     }
 
     public Map<Course, Mark> getMarks() {

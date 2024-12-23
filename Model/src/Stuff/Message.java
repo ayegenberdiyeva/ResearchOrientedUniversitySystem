@@ -7,26 +7,31 @@ import src.Enums.UrgencyLevel;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Message implements Serializable {
-    public Message(String senderId, String receiverId, String content, MessageType type, UrgencyLevel urgency) {
+    public Message(UUID senderId, UUID receiverId, String content, MessageType type, UrgencyLevel urgency) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
         this.type = type;
         this.urgencyLevel = urgency;
         this.isRead = false;
-        this.id = IdGenerator.generateID("MSG-");
+        this.id = generateId();
     }
 
-    private String id;
-    private String senderId;
-    private String receiverId;
+    private UUID id;
+    private UUID senderId;
+    private UUID receiverId;
     private String content;
     private Date sentDate;
     private boolean isRead;
     private MessageType type;
     private UrgencyLevel urgencyLevel;
+
+    private UUID generateId(){
+        return UUID.randomUUID();
+    }
 
     public void send() {
         this.sentDate = new Date();
@@ -42,15 +47,15 @@ public class Message implements Serializable {
         }
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public String getSenderId() {
+    public UUID getSenderId() {
         return senderId;
     }
 
-    public String getReceiverId() {
+    public UUID getReceiverId() {
         return receiverId;
     }
 
